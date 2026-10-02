@@ -18,6 +18,14 @@ class Result:
     message: str
     data: dict[str, Any] = field(default_factory=dict)
 
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "accepted": self.accepted,
+            "state": self.state,
+            "message": self.message,
+            "data": self.data,
+        }
+
 def validate_request(request: Request) -> None:
     if not request.actor or not request.action or not request.request_id:
         raise ValueError("请求缺少身份、动作或幂等键")
